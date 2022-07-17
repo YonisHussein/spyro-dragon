@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/intern');
 
 const teamArray = [];
 
@@ -9,22 +10,22 @@ const addManager = () =>{
         {
             type: 'input',
             name: 'name',
-            message: 'Enter the name of the manager.'
+            message: 'Enter the name of the manager'
         },
         {
             type: 'input',
             name: 'id',
-            message: 'Enter the ID of the manager.'
+            message: 'Enter the ID of the manager'
         },
         {
             type: 'input',
             name: 'email',
-            message: 'Enter the email of the manager.'
+            message: 'Enter the email of the manager'
         },
         {
             type: 'input',
             name:'officeNumber',
-            message: 'Enter the office number of the manager.'
+            message: 'Enter the office number of the manager'
         }
     ])
     .then(managerInfo => {
@@ -46,7 +47,7 @@ const addEngineer = () => {
             type: 'input',
             name: 'email',
             message: 'Enter the email of the engineer'
-        }
+        },
         {
             type: 'input',
             name: 'email',
@@ -60,3 +61,35 @@ const addEngineer = () => {
         console.log(engineer);
     });
 }
+
+const addIntern = () => {
+    return inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'Enter the name of the intern'
+        },
+        {
+            type: 'input',
+            name:'id',
+            message: 'Enter the id of the intern'
+        },
+        {
+            type:'input',
+            name: 'email',
+            message: 'Enter the email of the intern'
+        },
+        {
+            type: 'input',
+            name: 'school',
+            message: 'Enter the school of the intern'
+        }
+    ])
+    .then(internInfo => {
+        const {name, id, email, school} = internInfo;
+        const intern = new Intern(name, id, email, school);
+        teamArray.push(intern);
+        console.log(intern);
+    });
+};
+
