@@ -93,3 +93,22 @@ const addIntern = () => {
     });
 };
 
+const writeFile = data => {
+    fs.writeFile('./index.html', data, (err) => {
+        if(err) {
+            console.log(err);
+            return
+        };
+        console.log('The team profile is created!')
+    })
+}
+addManager()
+    .then(addEngineer)
+    .then(addIntern)
+    .then(teamArray => {
+        return generateData(teamArray);
+    })
+    .then(pageHTML => {
+        return writeFile(pageHTML)
+    })
+
