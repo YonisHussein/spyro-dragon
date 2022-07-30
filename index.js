@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager')
 
 const teamArray = [];
 
@@ -29,15 +30,15 @@ const addManager = () =>{
         }
     ])
     .then(managerInfo => {
-        const {name, id, email, offcieNumber} = managerInfo;
-        const manager = new Manager(name, id, email, officerNumber);
+        const {name, id, email, officeNumber} = managerInfo;
+        const manager = new Manager(name, id, email, officeNumber);
         teamArray.push(manager);
         console.log(manager);
     });
 }
 
 const addEngineer = () => {
-    return inquiere.prompt([
+    return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
@@ -90,7 +91,13 @@ const addIntern = () => {
         const intern = new Intern(name, id, email, school);
         teamArray.push(intern);
         console.log(intern);
-    });
+        console.log(teamArray);
+        return teamArray
+    }).then(
+        // teamArray =>
+            
+        //     //return data}
+            );
 };
 
 const writeFile = data => {
@@ -102,13 +109,12 @@ const writeFile = data => {
         console.log('The team profile is created!')
     })
 }
+
+
 addManager()
     .then(addEngineer)
     .then(addIntern)
     .then(teamArray => {
-        return generateData(teamArray);
+        return writeFile(teamArray);
     })
-    .then(pageHTML => {
-        return writeFile(pageHTML)
-    })
-
+    
