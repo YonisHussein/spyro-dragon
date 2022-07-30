@@ -91,30 +91,97 @@ const addIntern = () => {
         const intern = new Intern(name, id, email, school);
         teamArray.push(intern);
         console.log(intern);
-        console.log(teamArray);
+        console.log("TEAM ARRAY",teamArray);
         return teamArray
-    }).then(
-        // teamArray =>
+    })}
+
+
+    function createPage (teamArray){
+        
+
+        teamArray.forEach(employee =>{
+            let name =employee.name;
+            let id= employee.id;
+            let email= employee.email;
+            if (employee.getRole() ==="Manager"){
+                let role = "Manager";
+                let officeNumber = employee.officeNumber
             
-        //     //return data}
-            );
-};
 
-const writeFile = data => {
-    fs.writeFile('./index.html', data, (err) => {
-        if(err) {
-            console.log(err);
-            return
-        };
-        console.log('The team profile is created!')
-    })
+           const managerDiv = `
+            <div>
+                <h2>${name}</h2>
+                <h2>${role}</h2>
+            </div>
+            <div>
+                <p>ID: ${id}</p>
+                <p>Email: ${email}/p>
+                <p>Office Number: ${officeNumber}</p>
+            </div>`
+        
+        
+
+
+
+        return data =`
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Team Profile</h1>
+    </div>
+   ${managerDiv}
+    <div>
+        <h2>Engineer's Name</h2>
+        <h2>Engineer</h2>
+    </div>
+    <div>
+        <p>ID: 222222</p>
+        <p>Email: engineering@gmail.com</p>
+        <p>github: github.com</p>
+    </div>
+    <div>
+        <h2>Intern's Name</h2>
+        <h2>Intern</h2>
+    </div>
+    <div>
+        <p>ID: 333333</p>
+        <p>Email: Intern@gmail.com</p>
+        <p>School: UofT</p>
+    </div>
+</body>
+        `
+    }
+
+})
+
 }
+        
 
 
-addManager()
-    .then(addEngineer)
-    .then(addIntern)
-    .then(teamArray => {
-        return writeFile(teamArray);
-    })
+        function writeFile(){
+              
+                    fs.writeFileSync('./index.html', data)
+                    
+                    // , (err) => {
+                    //     if(err) {
+                    //         console.log(err);
+                    //         return
+                    //     };
+                    //     console.log('The team profile is created!')
+                    // }
+                    
+                }
+            
+    
+
+
+
+addManager().then(addEngineer).then(addIntern).then(teamArray =>createPage(teamArray)).then(writeFile)
     
